@@ -33,9 +33,7 @@ func benchmarkOctreeInit(b *testing.B, deep, maxcount int) {
 	for n := 0; n < b.N; n++ {
 		tree := octree.NewOctree(octree.Point{0, 0, 0}, octree.Point{1, 1, 1}, deep, maxcount)
 		assert.NotNil(tree)
-		for _, p := range points {
-			tree.Insert(p)
-		}
+		tree.Insert(points)
 	}
 }
 func BenchmarkOctreeInit5000000_8_1024(b *testing.B) {
@@ -105,9 +103,7 @@ func BenchmarkPlainInit5000000(b *testing.B) {
 	for n := 0; n < b.N; n++ {
 		tree := octree.NewPlain()
 		assert.NotNil(tree)
-		for _, p := range points {
-			tree.Insert(p)
-		}
+		tree.Insert(points)
 	}
 }
 
@@ -115,12 +111,10 @@ func benchOctreeSelect(b *testing.B, deep, maxcount int) {
 	// init test data
 	points := pointData(5000000)
 	cloud := octree.NewOctree(octree.Point{0, 0, 0}, octree.Point{1, 1, 1}, deep, maxcount)
-	for _, p := range points {
-		cloud.Insert(p)
-	}
+	cloud.Insert(points)
 	b.ResetTimer()
 
-	rand := rand.New(rand.NewSource(2))
+	rand := rand.New(rand.NewSource(10))
 	for n := 0; n < b.N; n++ {
 		mn := octree.Point{
 			X: rand.Float64() * 0.9,
@@ -235,9 +229,7 @@ func BenchmarkPlainSelect5000000(b *testing.B) {
 	// init test data
 	points := pointData(5000000)
 	cloud := octree.NewPlain()
-	for _, p := range points {
-		cloud.Insert(p)
-	}
+	cloud.Insert(points)
 	b.ResetTimer()
 
 	rand := rand.New(rand.NewSource(2))

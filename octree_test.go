@@ -12,13 +12,10 @@ func TestSelect(t *testing.T) {
 	assert := assert.New(t)
 	points := pointData(1000000)
 	cloudOctree := octree.NewOctree(octree.Point{0, 0, 0}, octree.Point{1, 1, 1}, 8, 256)
-	for _, p := range points {
-		cloudOctree.Insert(p)
-	}
+	cloudOctree.Insert(points)
+
 	cloudPlain := octree.NewPlain()
-	for _, p := range points {
-		cloudPlain.Insert(p)
-	}
+	cloudPlain.Insert(points)
 
 	rand := rand.New(rand.NewSource(2))
 	for n := 0; n < 1000; n++ {

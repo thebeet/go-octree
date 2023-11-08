@@ -8,8 +8,8 @@ func NewPlain() PointCloud {
 	return &plain{make([]*PointData, 0)}
 }
 
-func (p *plain) Insert(point *PointData) {
-	p.points = append(p.points, point)
+func (p *plain) Insert(points []*PointData) {
+	p.points = append(p.points, points...)
 }
 
 func (p *plain) Select(minpoint, maxpoint Point) []*PointData {
